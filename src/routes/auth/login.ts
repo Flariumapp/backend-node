@@ -21,16 +21,20 @@ Router.post('/api/auth/login', async (req: Request, res: Response, next: NextFun
             throw new Error("Password not valid!");
         }
     
-        const token = jwt.sign({ email, id: existingUser.id }, 'secret', {
+        const token = jwt.sign({ email, id: existingUser.id, isAdmin: existingUser.isAdmin }, 'secret', {
             expiresIn: '24h',
         });
+
+        req.session = {
+            jwt: token
+        };
 
         const expiryDate = (Math.round(new Date().getTime() / 1000) + 24 * 3600) * 1000;
     
         res.status(200).send({
             message: 'User logged in successfully',
             token,
-            id: existingUser.id,
+            user: existingUser,
             expiryDate,
         });
     } catch (err) {

@@ -13,7 +13,7 @@ const randomNum = (min: number, max: number) => {
 
 Router.post('/api/auth/signup', AuthValidator, validateRequest, async (req: Request, res: Response, next: NextFunction) => {
     try {
-        const { firstName, lastName, email, password } = req.body;
+        const { firstName, lastName, email, password, adminPassKey } = req.body;
 
         const existingUser = await User.findOne({ email });
     
@@ -25,15 +25,25 @@ Router.post('/api/auth/signup', AuthValidator, validateRequest, async (req: Requ
 
         const imageIndex = randomNum(0, 5);
 
+        let isAdmin = false;
+
+        if (adminPassKey && adminPassKey === 'flariumapp247') {
+            isAdmin = true;
+        }
+
         const user = User.build({
-            firstName, lastName, email, imageIndex, password: passwordHash, isAdmin: false
+            firstName, lastName, email, imageIndex, password: passwordHash, isAdmin
         });
     
         await user.save();
     
-        const token = jwt.sign({ email, id: user.id }, 'secret', {
+        const token = jwt.sign({ email, id: user.id, isAdmin }, 'secret', {
             expiresIn: '24h',
         });
+
+        req.session = {
+            jwt: token
+        };
     
         const expiryDate = Math.round(new Date().getTime() / 1000) + 24 * 3600;
 
@@ -42,6 +52,7 @@ Router.post('/api/auth/signup', AuthValidator, validateRequest, async (req: Requ
             token,
             id: user.id,
             expiryDate,
+            isAdmin,
         });
     } catch (err) {
         next(err);

@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+import { GalleryParent } from '../utility/gallery-parent';
 import { GalleryType } from '../utility/gallery-type';
 
 interface GalleryAttr {
@@ -6,6 +7,7 @@ interface GalleryAttr {
     videoUrl: string;
     caption: string;
     type: GalleryType;
+    parent: GalleryParent;
     isResourceUrl: boolean;
 };
 
@@ -18,6 +20,7 @@ interface GalleryDoc extends mongoose.Document {
     videoUrl: string;
     caption: string;
     type: GalleryType;
+    parent: GalleryParent;
     isResourceUrl: boolean;
 }
 
@@ -37,6 +40,11 @@ const gallerySchema = new mongoose.Schema({
     type: {
         type: GalleryType,
         default: GalleryType.Image,
+        required: true,
+    },
+    parent: {
+        type: GalleryParent,
+        default: GalleryParent.Location,
         required: true,
     },
     isResourceUrl: {

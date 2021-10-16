@@ -1,8 +1,37 @@
 import path from 'path';
 import { json } from 'body-parser';
 import express, { Request, Response, NextFunction } from 'express';
+import cookieParser from 'cookie-parser';
+import cookieSession from 'cookie-session';
 import multer, { FileFilterCallback } from 'multer';
 import { currentUser } from './src/middlewares/current-user';
+import { SignupRouter } from './src/routes/auth/signup';
+import { LoginRouter } from './src/routes/auth/login';
+import { FlightCreateRouter } from './src/routes/flight/create';
+import { FlightIndexRouter } from './src/routes/flight';
+import { FlightShowRouter } from './src/routes/flight/show';
+import { FlightDeleteRouter } from './src/routes/flight/delete';
+import { FlightUpdateRouter } from './src/routes/flight/update';
+import { GalleryCreateRouter } from './src/routes/gallery/create';
+import { GalleryIndexRouter } from './src/routes/gallery';
+import { GalleryShowRouter } from './src/routes/gallery/show';
+import { GalleryDeleteRouter } from './src/routes/gallery/delete';
+import { GalleryUpdateRouter } from './src/routes/gallery/update';
+import { CompanyCreateRouter } from './src/routes/company/create';
+import { CompanyIndexRouter } from './src/routes/company';
+import { CompanyShowRouter } from './src/routes/company/show';
+import { CompanyDeleteRouter } from './src/routes/company/delete';
+import { CompanyUpdateRouter } from './src/routes/company/update';
+import { LocationCreateRouter } from './src/routes/location/create';
+import { LocationIndexRouter } from './src/routes/location';
+import { LocationShowRouter } from './src/routes/location/show';
+import { LocationUpdateRouter } from './src/routes/location/update';
+import { LocationDeleteRouter } from './src/routes/location/delete';
+import { UserShowRouter } from './src/routes/user/show';
+import { UserUpdateRouter } from './src/routes/user/update';
+import { UserIndexRouter } from './src/routes/user';
+import { UserDeleteRouter } from './src/routes/user/delete';
+import { LogoutRouter } from './src/routes/auth/logout';
 
 const app = express();
 
@@ -31,8 +60,14 @@ app.use(multer({storage: storage, fileFilter: fileFilter}).any());
 app.use('/images', express.static(path.join(__dirname, 'images')));
 app.use('/videos', express.static(path.join(__dirname, 'videos')));
 
-app.use(json());
 app.set('trust proxy', true);
+app.use(json());
+app.use(cookieSession({
+    signed: false,
+    secure: false,
+}));
+app.use(cookieParser());
+
 
 app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Origin', '*');
@@ -43,15 +78,43 @@ app.use((req, res, next) => {
 
 app.use(currentUser);
 
+app.use(SignupRouter);
+app.use(LoginRouter);
+app.use(LogoutRouter);
+app.use(FlightCreateRouter);
+app.use(FlightIndexRouter);
+app.use(FlightShowRouter);
+app.use(FlightDeleteRouter);
+app.use(FlightUpdateRouter);
+app.use(GalleryCreateRouter);
+app.use(GalleryIndexRouter);
+app.use(GalleryShowRouter);
+app.use(GalleryDeleteRouter);
+app.use(GalleryUpdateRouter);
+app.use(CompanyCreateRouter);
+app.use(CompanyIndexRouter);
+app.use(CompanyShowRouter);
+app.use(CompanyDeleteRouter);
+app.use(CompanyUpdateRouter);
+app.use(LocationCreateRouter);
+app.use(LocationIndexRouter);
+app.use(LocationShowRouter);
+app.use(LocationUpdateRouter);
+app.use(LocationDeleteRouter);
+app.use(UserIndexRouter);
+app.use(UserShowRouter);
+app.use(UserUpdateRouter);
+app.use(UserDeleteRouter);
+
 app.all('*', (req: Request, res: Response) => {
     console.log(req.path);
     throw new Error('API route not found!');
 });
 
 app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
-    // console.log('Something went wrong!');
+    console.log('Something went wrong!');
     if (err) {
-        // console.log(err.message);
+        console.log(err.message);
         return res.status(400).send({
             message: err.message,
         });
