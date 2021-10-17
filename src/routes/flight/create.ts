@@ -9,17 +9,19 @@ const Router = express.Router();
 
 Router.post('/api/flight', requireAuth, requireAdmin, FlightValidator, validateRequest, async (req: Request, res: Response, next: NextFunction) => {
     try {
-        const { flightNo, brand, origin, destination, time, gateNo, terminal } = req.body;
+        const { flightNo, brand, origin, destination, arrival, departure, gateNo, terminal, baseFare } = req.body;
     
         const flight = Flight.build({
             flightNo,
             brand,
             origin,
             destination,
-            time,
+            arrival,
+            departure,
             gateNo,
             terminal,
             status: 'scheduled',
+            baseFare,
         });
     
         await flight.save();

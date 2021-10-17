@@ -3,7 +3,7 @@ import mongoose from 'mongoose';
 interface LocationAttr {
     name: string;
     country: string;
-    gallery: string;
+    gallery: string[];
     description: string;
 }
 
@@ -14,7 +14,7 @@ interface LocationModel extends mongoose.Model<LocationDoc> {
 interface LocationDoc extends mongoose.Document {
     name: string;
     country: string;
-    gallery: string;
+    gallery: string[];
     description: string;
 }
 
@@ -27,11 +27,11 @@ const locationSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
-    gallery: {
+    gallery: [{
         type: String,
         ref: 'Gallery',
         required: false,
-    },
+    }],
     description: {
         type: String,
         required: false,

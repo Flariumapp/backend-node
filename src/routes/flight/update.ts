@@ -11,7 +11,7 @@ Router.put('/api/flight/:id', requireAuth, requireAdmin, FlightValidator, valida
     try {
         const id = req.params.id;
 
-        const { flightNo, brand, origin, destination, time, gateNo, terminal } = req.body;
+        const { flightNo, brand, origin, destination, arrival, departure, gateNo, terminal, baseFare } = req.body;
 
         const flight = await Flight.findById(id);
 
@@ -24,10 +24,12 @@ Router.put('/api/flight/:id', requireAuth, requireAdmin, FlightValidator, valida
             brand,
             origin,
             destination,
-            time,
+            arrival,
+            departure,
             gateNo,
             terminal,
             status: 'scheduled',
+            baseFare,
         });
     
         await flight.save();

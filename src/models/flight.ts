@@ -5,10 +5,12 @@ interface FlightAttr {
     brand: string;
     origin: string;
     destination: string;
-    time: string;
+    arrival: string;
+    departure: string;
     gateNo: string;
     terminal: string;
     status: string;
+    baseFare: number;
 }
 
 interface FlightModel extends mongoose.Model<FlightDoc> {
@@ -20,10 +22,12 @@ interface FlightDoc extends mongoose.Document {
     brand: string;
     origin: string;
     destination: string;
-    time: string;
+    arrival: string;
+    departure: string;
     gateNo: string;
     terminal: string;
     status: string;
+    baseFare: string;
 }
 
 const flightSchema = new mongoose.Schema({
@@ -46,7 +50,11 @@ const flightSchema = new mongoose.Schema({
         ref: 'Location',
         required: true,
     },
-    time: {
+    arrival: {
+        type: String,
+        required: true,
+    },
+    departure: {
         type: String,
         required: true,
     },
@@ -60,6 +68,10 @@ const flightSchema = new mongoose.Schema({
     },
     status: {
         type: String,
+        required: true,
+    },
+    baseFare: {
+        type: Number,
         required: true,
     }
 }, {

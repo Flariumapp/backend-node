@@ -32,6 +32,7 @@ import { UserUpdateRouter } from './src/routes/user/update';
 import { UserIndexRouter } from './src/routes/user';
 import { UserDeleteRouter } from './src/routes/user/delete';
 import { LogoutRouter } from './src/routes/auth/logout';
+import { SearchIndexRouter } from './src/routes/search';
 
 const app = express();
 
@@ -105,6 +106,7 @@ app.use(UserIndexRouter);
 app.use(UserShowRouter);
 app.use(UserUpdateRouter);
 app.use(UserDeleteRouter);
+app.use(SearchIndexRouter);
 
 app.all('*', (req: Request, res: Response) => {
     console.log(req.path);

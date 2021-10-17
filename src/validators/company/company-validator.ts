@@ -5,7 +5,7 @@ const validator = [
         .isLength({ min: 2 })
         .withMessage('Company name must be present (atleast 2 characters)'),
     body('logo')
-        .isEmpty()
+        .notEmpty()
         .withMessage('Logo must be provided for a company'),
 ];
 
