@@ -1,4 +1,5 @@
 export enum GalleryParent {
     Location = 'location',
-    Company = 'company'
+    Company = 'company',
+    Bank = 'bank',
 };

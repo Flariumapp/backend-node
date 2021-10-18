@@ -55,6 +55,10 @@ Router.post('/api/gallery', requireAuth, requireAdmin, async (req: Request, res:
         if (parent === 'company') {
             modifiedParent = GalleryParent.Company;
         }
+
+        if (parent === 'bank') {
+            modifiedParent = GalleryParent.Bank;
+        }
     
         const gallery = Gallery.build({
             imageUrl, videoUrl, caption, type: modifiedType, parent: modifiedParent, isResourceUrl

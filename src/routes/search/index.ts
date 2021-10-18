@@ -1,12 +1,11 @@
 import express, { Request, Response, NextFunction } from 'express';
-import { requireAuth } from '../../middlewares/require-auth';
 import { Location } from '../../models/location';
 import { Company } from '../../models/company';
 import Fuse from 'fuse.js';
 
 const Router = express.Router();
 
-Router.get('/api/search', requireAuth, async (req: Request, res: Response, next: NextFunction) => {
+Router.get('/api/search', async (req: Request, res: Response, next: NextFunction) => {
     try {
         // api/search/?type=location&input=text
         const type = req.query.type as string;

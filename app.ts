@@ -33,6 +33,11 @@ import { UserIndexRouter } from './src/routes/user';
 import { UserDeleteRouter } from './src/routes/user/delete';
 import { LogoutRouter } from './src/routes/auth/logout';
 import { SearchIndexRouter } from './src/routes/search';
+import { BankIndexRouter } from './src/routes/bank';
+import { BankCreateRouter } from './src/routes/bank/create';
+import { BankShowRouter } from './src/routes/bank/show';
+import { BankUpdateRouter } from './src/routes/bank/update';
+import { BankDeleteRouter } from './src/routes/bank/delete';
 
 const app = express();
 
@@ -107,6 +112,11 @@ app.use(UserShowRouter);
 app.use(UserUpdateRouter);
 app.use(UserDeleteRouter);
 app.use(SearchIndexRouter);
+app.use(BankIndexRouter);
+app.use(BankCreateRouter);
+app.use(BankShowRouter);
+app.use(BankUpdateRouter);
+app.use(BankDeleteRouter);
 
 app.all('*', (req: Request, res: Response) => {
     console.log(req.path);
