@@ -38,6 +38,16 @@ import { BankCreateRouter } from './src/routes/bank/create';
 import { BankShowRouter } from './src/routes/bank/show';
 import { BankUpdateRouter } from './src/routes/bank/update';
 import { BankDeleteRouter } from './src/routes/bank/delete';
+import { ProductIndexRouter } from './src/routes/product';
+import { ProductShowRouter } from './src/routes/product/show';
+import { ProductCreateRouter } from './src/routes/product/create';
+import { ProductUpdateRouter } from './src/routes/product/update';
+import { ProductDeleteRouter } from './src/routes/product/delete';
+import { CartIndexRouter } from './src/routes/cart';
+import { CartShowRouter } from './src/routes/cart/show';
+import { CartCreateRouter } from './src/routes/cart/create';
+import { CartUpdateRouter } from './src/routes/cart/update';
+import { CartDeleteRouter } from './src/routes/cart/delete';
 
 const app = express();
 
@@ -117,6 +127,16 @@ app.use(BankCreateRouter);
 app.use(BankShowRouter);
 app.use(BankUpdateRouter);
 app.use(BankDeleteRouter);
+app.use(ProductIndexRouter);
+app.use(ProductCreateRouter);
+app.use(ProductShowRouter);
+app.use(ProductUpdateRouter);
+app.use(ProductDeleteRouter);
+app.use(CartIndexRouter);
+app.use(CartShowRouter);
+app.use(CartCreateRouter);
+app.use(CartUpdateRouter);
+app.use(CartDeleteRouter);
 
 app.all('*', (req: Request, res: Response) => {
     console.log(req.path);
