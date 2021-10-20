@@ -2,6 +2,7 @@ import mongoose from 'mongoose';
 
 interface OrderAttr {
     carts: string[];
+    price: number;
     user: string;
 }
 
@@ -11,6 +12,7 @@ interface OrderModel extends mongoose.Model<OrderDoc> {
 
 interface OrderDoc extends mongoose.Document {
     carts: string[];
+    price: number;
     user: string;
 }
 
@@ -20,6 +22,10 @@ const orderSchema = new mongoose.Schema({
         ref: 'Cart',
         required: true,
     }],
+    price: {
+        type: Number,
+        required: true,
+    },
     user: {
         type: String,
         ref: 'User',

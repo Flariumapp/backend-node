@@ -48,6 +48,11 @@ import { CartShowRouter } from './src/routes/cart/show';
 import { CartCreateRouter } from './src/routes/cart/create';
 import { CartUpdateRouter } from './src/routes/cart/update';
 import { CartDeleteRouter } from './src/routes/cart/delete';
+import { OrderIndexRouter } from './src/routes/order';
+import { OrderShowRouter } from './src/routes/order/show';
+import { OrderCreateRouter } from './src/routes/order/create';
+import { OrderUpdateRouter } from './src/routes/order/update';
+import { OrderDeleteRouter } from './src/routes/order/delete';
 
 const app = express();
 
@@ -137,6 +142,11 @@ app.use(CartShowRouter);
 app.use(CartCreateRouter);
 app.use(CartUpdateRouter);
 app.use(CartDeleteRouter);
+app.use(OrderIndexRouter);
+app.use(OrderShowRouter);
+app.use(OrderCreateRouter);
+app.use(OrderUpdateRouter);
+app.use(OrderDeleteRouter);
 
 app.all('*', (req: Request, res: Response) => {
     console.log(req.path);

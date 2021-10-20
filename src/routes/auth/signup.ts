@@ -23,7 +23,7 @@ Router.post('/api/auth/signup', AuthValidator, validateRequest, async (req: Requ
     
         const passwordHash = await bcrypt.hash(password, 12);
 
-        const imageIndex = randomNum(0, 5);
+        const imageIndex = randomNum(0, 14);
 
         let isAdmin = false;
 

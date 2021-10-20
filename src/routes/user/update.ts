@@ -69,6 +69,32 @@ Router.put('/api/update-password/:id', requireAuth, PasswordValidator, validateR
     }
 });
 
+Router.put('/api/update-profile', requireAuth, async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        const id = req.currentUser?.id;
+        const user = await User.findById(id);
+
+        const { imageIndex } = req.body;
+    
+        if (!user) {
+            throw new Error('No such user exists!');
+        }
+
+        user.set({
+            imageIndex
+        });
+    
+        await user.save();
+    
+        res.status(204).send({
+            message: 'user profile image updated successfully',
+            user,
+        });
+    } catch (err) {
+        next(err);
+    }
+});
+
 export { Router as UserUpdateRouter };
 
 
