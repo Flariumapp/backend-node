@@ -53,6 +53,22 @@ import { OrderShowRouter } from './src/routes/order/show';
 import { OrderCreateRouter } from './src/routes/order/create';
 import { OrderUpdateRouter } from './src/routes/order/update';
 import { OrderDeleteRouter } from './src/routes/order/delete';
+import { WalletCreateRouter } from './src/routes/wallet/create';
+import { WalletIndexRouter } from './src/routes/wallet';
+import { WalletShowRouter } from './src/routes/wallet/show';
+import { WalletUpdateRouter } from './src/routes/wallet/update';
+import { WalletDeleteRouter } from './src/routes/wallet/delete';
+import { HistoryIndexRouter } from './src/routes/history';
+import { HistoryShowRouter } from './src/routes/history/show';
+import { HistoryDeleteRouter } from './src/routes/history/delete';
+import { BookIndexRouter } from './src/routes/book';
+import { BookShowRouter } from './src/routes/book/show';
+import { BookCreateRouter } from './src/routes/book/create';
+import { BookDeleteRouter } from './src/routes/book/delete';
+import { PassengerIndexRouter } from './src/routes/passenger';
+import { PassengerShowRouter } from './src/routes/passenger/show';
+import { PassengerCreateRouter } from './src/routes/passenger/create';
+import { PassengerDeleteRouter } from './src/routes/passenger/delete';
 
 const app = express();
 
@@ -147,6 +163,22 @@ app.use(OrderShowRouter);
 app.use(OrderCreateRouter);
 app.use(OrderUpdateRouter);
 app.use(OrderDeleteRouter);
+app.use(WalletIndexRouter);
+app.use(WalletShowRouter);
+app.use(WalletCreateRouter);
+app.use(WalletUpdateRouter);
+app.use(WalletDeleteRouter);
+app.use(HistoryIndexRouter);
+app.use(HistoryShowRouter);
+app.use(HistoryDeleteRouter);
+app.use(BookIndexRouter);
+app.use(BookShowRouter);
+app.use(BookCreateRouter);
+app.use(BookDeleteRouter);
+app.use(PassengerIndexRouter);
+app.use(PassengerShowRouter);
+app.use(PassengerCreateRouter);
+app.use(PassengerDeleteRouter);
 
 app.all('*', (req: Request, res: Response) => {
     console.log(req.path);

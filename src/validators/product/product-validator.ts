@@ -14,4 +14,4 @@ const validator = [
         .withMessage('Price must be a number.'),
 ];
 
-export { validator as ProductValidator }
+export { validator as ProductValidator };

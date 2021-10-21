@@ -7,7 +7,28 @@ Router.get('/api/flight/:id', async (req: Request, res: Response, next: NextFunc
     try {
         const id = req.params.id;
 
-        const flight = await Flight.findById(id).populate('brand').populate('origin').populate('destination');
+        const flight = await Flight.findById(id)
+            .populate({
+                path: 'brand',
+                populate: {
+                    path: 'logo',
+                    model: 'Gallery',
+                }
+            })
+            .populate({
+                path: 'destination',
+                populate: {
+                    path: 'gallery',
+                    model: 'Gallery',
+                }
+            })
+            .populate({
+                path: 'origin',
+                populate: {
+                    path: 'gallery',
+                    model: 'Gallery',
+                }
+            });
 
         if (!flight) {
             throw new Error('Flight Not Found!');

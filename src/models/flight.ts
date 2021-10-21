@@ -27,7 +27,7 @@ interface FlightDoc extends mongoose.Document {
     gateNo: string;
     terminal: string;
     status: string;
-    baseFare: string;
+    baseFare: number;
 }
 
 const flightSchema = new mongoose.Schema({
