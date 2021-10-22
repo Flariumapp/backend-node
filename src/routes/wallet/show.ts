@@ -33,7 +33,7 @@ Router.post('/api/my-wallet', requireAuth, async (req: Request, res: Response, n
             throw new Error('Wallet not found!');
         }
   
-        const isValidPin = bcrypt.compare(pin, wallet.pin);
+        const isValidPin = await bcrypt.compare(pin, wallet.pin);
 
         if (!isValidPin) {
             throw new Error('Invalid Pin!');

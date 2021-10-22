@@ -8,13 +8,15 @@ import { MealType } from '../../utility/meal-type';
 import { BookValidator } from '../../validators/book/book-validator';
 import { ClassType } from '../../utility/class-type';
 import { Passenger } from '../../models/passenger';
+import { History } from '../../models/history';
+import { compare } from 'bcryptjs';
 
 const Router = express.Router();
 
 Router.post('/api/book', requireAuth, BookValidator, validateRequest, async (req: Request, res: Response, next: NextFunction) => {
     try {
         const id = req.currentUser?.id as string;
-        const { passengers, classType } = req.body;
+        const { passengers, classType, pin } = req.body;
         const flightId = req.body.flight as string;
 
         const flight = await Flight.findById(flightId).populate({
@@ -79,6 +81,12 @@ Router.post('/api/book', requireAuth, BookValidator, validateRequest, async (req
             throw new Error('Wallet not found!');
         }
 
+        const isValidPin = await compare(pin, wallet.pin);
+
+        if (!isValidPin) {
+            throw new Error('Invalid Pin!');
+        }
+
         const amount = wallet.amount;
 
         if (amount < cost) {
@@ -100,6 +108,14 @@ Router.post('/api/book', requireAuth, BookValidator, validateRequest, async (req
         });
 
         await wallet.save();
+
+        const history = History.build({
+            amount: cost,
+            withdraw: true,
+            user: id,
+        });
+
+        await history.save();
 
         res.status(201).send({
             message: 'Flight Bookings Done!',

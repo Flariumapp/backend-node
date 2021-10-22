@@ -8,7 +8,7 @@ Router.get('/api/history', requireAuth, async (req: Request, res: Response, next
     try {
         const id = req.currentUser?.id as string;
 
-        const history = await History.find({ user: id });
+        const history = await History.find({ user: id }).populate('user').sort({ createdAt: -1 });
 
         res.status(200).send({
             message: 'History received successfully',

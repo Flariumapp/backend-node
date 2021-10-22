@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+import { GenderType } from '../utility/gender-type';
 import { MealType } from '../utility/meal-type';
 
 interface PassengerAttr {
@@ -6,7 +7,7 @@ interface PassengerAttr {
     lastName: string;
     email: string;
     age: number;
-    gender: string;
+    gender: GenderType;
     meal: MealType;
     imageIndex: number;
     flight: string;
@@ -21,7 +22,7 @@ interface PassengerDoc extends mongoose.Document {
     lastName: string;
     email: string;
     age: number;
-    gender: string;
+    gender: GenderType;
     meal: MealType;
     imageIndex: number;
     flight: string;
@@ -45,8 +46,13 @@ const passengerSchema = new mongoose.Schema({
         required: true, 
     },
     gender: {
-        type: String,
+        type: GenderType,
         required: true,
+    },
+    meal: {
+        type: MealType,
+        required: true,
+        default: MealType.None,
     },
     imageIndex: {
         type: Number,

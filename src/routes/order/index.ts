@@ -16,7 +16,7 @@ Router.get('/api/order', requireAuth, async (req: Request, res: Response, next: 
                     // model: 'Gallery',
                 }
             },
-        });
+        }).sort({ createdAt: -1 });
 
         res.status(200).send({
             message: 'Orders received.',
