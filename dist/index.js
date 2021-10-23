@@ -59,7 +59,7 @@ var start = function () { return __awaiter(void 0, void 0, void 0, function () {
                 error_1 = _a.sent();
                 throw new Error('Error connecting to database!');
             case 3:
-                port = 2000;
+                port = process.env.PORT || 2000;
                 server = app_1.app.listen(port, function () {
                     console.log('Listening on port:' + port);
                 });
