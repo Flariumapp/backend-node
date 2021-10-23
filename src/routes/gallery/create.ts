@@ -1,7 +1,7 @@
 import fs from 'fs';
 import util from 'util';
 import express, { Request, Response, NextFunction } from 'express';
-// import { uploadFile } from '../../../s3';
+import { uploadFile } from '../../../s3';
 import { requireAuth } from '../../middlewares/require-auth';
 import { Gallery } from '../../models/gallery';
 import { GalleryType } from '../../utility/gallery-type';
@@ -10,7 +10,7 @@ import { requireAdmin } from '../../middlewares/require-admin';
 
 const Router = express.Router();
 
-// const unlink = util.promisify(fs.unlink);
+const unlink = util.promisify(fs.unlink);
 
 Router.post('/api/gallery', requireAuth, requireAdmin, async (req: Request, res: Response, next: NextFunction) => {
     try {
@@ -35,18 +35,18 @@ Router.post('/api/gallery', requireAuth, requireAdmin, async (req: Request, res:
                 const file = (req.files as Express.Multer.File[])[0];
                 isResourceUrl = false;
                 videoUrl = file.path as string;
-                // const result = await uploadFile(file);
-                // videoUrl = 'videos/' + result.Key;
-                // await unlink(file.path);
+                const result = await uploadFile(file);
+                videoUrl = 'videos/' + result.Key;
+                await unlink(file.path);
             }
         } else {
             if (req.files && req.files.length > 0) {
                 const file = (req.files as Express.Multer.File[])[0];
                 isResourceUrl = false;
                 imageUrl = file.path as string;
-                // const result = await uploadFile(file);
-                // imageUrl = 'images/' + result.Key;
-                // await unlink(file.path);
+                const result = await uploadFile(file);
+                imageUrl = 'images/' + result.Key;
+                await unlink(file.path);
             }
         }
 

@@ -1,5 +1,5 @@
 import express, { Request, Response, NextFunction } from 'express';
-// import { getFileStream } from '../../../s3';
+import { getFileStream } from '../../../s3';
 import { Gallery } from '../../models/gallery';
 
 const Router = express.Router();
@@ -13,10 +13,10 @@ Router.get('/api/gallery', async (req: Request, res: Response, next: NextFunctio
     });
 });
 
-// Router.get('/images/:key', (req: Request, res: Response) => {
-//     const key = req.params.key;
-//     const readStream = getFileStream(key);
-//     readStream.pipe(res);
-// });
+Router.get('/images/:key', (req: Request, res: Response) => {
+    const key = req.params.key;
+    const readStream = getFileStream(key);
+    readStream.pipe(res);
+});
 
 export { Router as GalleryIndexRouter };

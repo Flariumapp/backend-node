@@ -1,7 +1,5 @@
 import request from 'supertest';
 import { app } from '../../../../app';
-import { Dashboard } from '../../../models/dashboard';
-import { Profile } from '../../../models/profile';
 import { User } from '../../../models/user';
 
 const SIGN_UP_URL = '/api/auth/signup';
@@ -43,22 +41,6 @@ describe('Signup tests', () => {
     it('fails if username is already occupied', async () => {
         await signup('test', 'test@test.com', 'test name', 20, 'whowhowq', 201);
         await signup('test', 'test@test1.com', 'test name1', 21, 'whowhowq', 400);
-    });
-
-    it('creates profile after creating user', async () => {
-        await signup('test', 'test@test.com', 'test name', 20, 'password', 201);
-        const user = await User.findOne({ email: 'test@test.com', password: 'password' });
-        expect(user).toBeDefined();
-
-        const profile = await Profile.findOne({ user: 'gqhohoq1' });
-        expect(profile).toBeDefined();
-    });
-
-    it('creates dashboard after creating profile', async () => {
-        // await signup('test', 'test@test.com', 'test name', 20, 'password', 201);
-        const user = await User.findOne({ email: 'test@test.com', password: 'password' });
-        const dashboard = await Dashboard.findOne({ user: user?.id });
-        expect(dashboard).toBeDefined();
     });
 
     it('succeeds if valid credentials are provided', async () => {
