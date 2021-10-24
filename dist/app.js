@@ -4,11 +4,14 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.app = void 0;
+var dotenv_1 = __importDefault(require("dotenv"));
+dotenv_1.default.config();
 var path_1 = __importDefault(require("path"));
 var body_parser_1 = require("body-parser");
+// import proxy from 'express-http-proxy';
 var express_1 = __importDefault(require("express"));
-var cookie_parser_1 = __importDefault(require("cookie-parser"));
-var cookie_session_1 = __importDefault(require("cookie-session"));
+// import cookieParser from 'cookie-parser';
+// import cookieSession from 'cookie-session';
 var multer_1 = __importDefault(require("multer"));
 var current_user_1 = require("./src/middlewares/current-user");
 var signup_1 = require("./src/routes/auth/signup");
@@ -103,11 +106,11 @@ app.use('/images', express_1.default.static(path_1.default.join(__dirname, 'imag
 app.use('/videos', express_1.default.static(path_1.default.join(__dirname, 'videos')));
 app.set('trust proxy', true);
 app.use((0, body_parser_1.json)());
-app.use((0, cookie_session_1.default)({
-    signed: false,
-    secure: false,
-}));
-app.use((0, cookie_parser_1.default)());
+// app.use(cookieSession({
+//     signed: false,
+//     secure: false,
+// }));
+// app.use(cookieParser());
 app.use(function (req, res, next) {
     res.setHeader('Access-Control-Allow-Origin', '*');
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, PATCH, DELETE');

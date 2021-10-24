@@ -86,9 +86,6 @@ Router.post('/api/auth/signup', auth_validator_1.AuthValidator, validate_request
                 token = jsonwebtoken_1.default.sign({ email: email, id: user.id, isAdmin: isAdmin }, 'secret', {
                     expiresIn: '24h',
                 });
-                req.session = {
-                    jwt: token
-                };
                 expiryDate = Math.round(new Date().getTime() / 1000) + 24 * 3600;
                 res.status(201).send({
                     message: 'User signed up successfully',

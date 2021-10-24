@@ -1,3 +1,6 @@
+import dotenv from 'dotenv';
+dotenv.config();
+
 import path from 'path';
 import { json } from 'body-parser';
 // import proxy from 'express-http-proxy';

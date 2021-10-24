@@ -8,7 +8,7 @@ var express_1 = __importDefault(require("express"));
 var Router = express_1.default.Router();
 exports.LogoutRouter = Router;
 Router.post('/api/auth/logout', function (req, res, next) {
-    req.session = null;
+    // req.session = null;
     res.send({
         message: 'User logged out successfully',
     });

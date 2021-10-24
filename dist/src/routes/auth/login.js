@@ -68,9 +68,6 @@ Router.post('/api/auth/login', function (req, res, next) { return __awaiter(void
                 token = jsonwebtoken_1.default.sign({ email: email, id: existingUser.id, isAdmin: existingUser.isAdmin }, 'secret', {
                     expiresIn: '24h',
                 });
-                req.session = {
-                    jwt: token
-                };
                 expiryDate = (Math.round(new Date().getTime() / 1000) + 24 * 3600) * 1000;
                 res.status(200).send({
                     message: 'User logged in successfully',

@@ -42,7 +42,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var mongoose_1 = __importDefault(require("mongoose"));
 var app_1 = require("./app");
 var start = function () { return __awaiter(void 0, void 0, void 0, function () {
-    var error_1, port, server;
+    var error_1, port;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
@@ -60,7 +60,7 @@ var start = function () { return __awaiter(void 0, void 0, void 0, function () {
                 throw new Error('Error connecting to database!');
             case 3:
                 port = process.env.PORT || 2000;
-                server = app_1.app.listen(port, function () {
+                app_1.app.listen(port, function () {
                     console.log('Listening on port:' + port);
                 });
                 return [2 /*return*/];
