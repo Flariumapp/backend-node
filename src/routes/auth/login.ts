@@ -25,9 +25,9 @@ Router.post('/api/auth/login', async (req: Request, res: Response, next: NextFun
             expiresIn: '24h',
         });
 
-        req.session = {
-            jwt: token
-        };
+        // req.session = {
+        //     jwt: token
+        // };
 
         const expiryDate = (Math.round(new Date().getTime() / 1000) + 24 * 3600) * 1000;
     

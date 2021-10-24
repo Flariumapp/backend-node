@@ -1,6 +1,5 @@
 import mongoose from 'mongoose';
 import { app } from './app';
-import * as http from 'http';
 
 const start = async () => {
     try {
@@ -15,7 +14,7 @@ const start = async () => {
 
     const port = process.env.PORT || 2000;
 
-    const server: http.Server = app.listen(port, () => {
+    app.listen(port, () => {
         console.log('Listening on port:' + port);
     });
 

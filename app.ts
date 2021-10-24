@@ -1,8 +1,9 @@
 import path from 'path';
 import { json } from 'body-parser';
+// import proxy from 'express-http-proxy';
 import express, { Request, Response, NextFunction } from 'express';
-import cookieParser from 'cookie-parser';
-import cookieSession from 'cookie-session';
+// import cookieParser from 'cookie-parser';
+// import cookieSession from 'cookie-session';
 import multer, { FileFilterCallback } from 'multer';
 import { currentUser } from './src/middlewares/current-user';
 import { SignupRouter } from './src/routes/auth/signup';
@@ -98,12 +99,13 @@ app.use('/images', express.static(path.join(__dirname, 'images')));
 app.use('/videos', express.static(path.join(__dirname, 'videos')));
 
 app.set('trust proxy', true);
+
 app.use(json());
-app.use(cookieSession({
-    signed: false,
-    secure: false,
-}));
-app.use(cookieParser());
+// app.use(cookieSession({
+//     signed: false,
+//     secure: false,
+// }));
+// app.use(cookieParser());
 
 
 app.use((req, res, next) => {
