@@ -3,6 +3,7 @@ dotenv.config();
 
 import path from 'path';
 import { json } from 'body-parser';
+import { createProxyServer } from 'http-proxy';
 // import proxy from 'express-http-proxy';
 import express, { Request, Response, NextFunction } from 'express';
 // import cookieParser from 'cookie-parser';
@@ -109,7 +110,6 @@ app.use(json());
 //     secure: false,
 // }));
 // app.use(cookieParser());
-
 
 app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Origin', '*');

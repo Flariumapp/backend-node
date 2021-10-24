@@ -2,6 +2,8 @@ import mongoose from 'mongoose';
 import { app } from './app';
 
 const start = async () => {
+    process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
+
     try {
         await mongoose.connect('mongodb+srv://manas28:subham2808@cluster0.fnmec.mongodb.net/flarium', {
             useUnifiedTopology: true,

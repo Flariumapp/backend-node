@@ -46,19 +46,22 @@ var start = function () { return __awaiter(void 0, void 0, void 0, function () {
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
-                _a.trys.push([0, 2, , 3]);
+                process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
+                _a.label = 1;
+            case 1:
+                _a.trys.push([1, 3, , 4]);
                 return [4 /*yield*/, mongoose_1.default.connect('mongodb+srv://manas28:subham2808@cluster0.fnmec.mongodb.net/flarium', {
                         useUnifiedTopology: true,
                         useNewUrlParser: true,
                     })];
-            case 1:
+            case 2:
                 _a.sent();
                 console.log('Connected to mongoose');
-                return [3 /*break*/, 3];
-            case 2:
+                return [3 /*break*/, 4];
+            case 3:
                 error_1 = _a.sent();
                 throw new Error('Error connecting to database!');
-            case 3:
+            case 4:
                 port = process.env.PORT || 2000;
                 app_1.app.listen(port, function () {
                     console.log('Listening on port:' + port);
